@@ -2,12 +2,18 @@ from schematics.models import Model
 from schematics.types import StringType, ListType, ModelType, IntType
 
 
+class PetType(Model):
+    nome = StringType(
+        required=True, deserialize_from="name", serialized_name="name"
+    )
+    cor = StringType(
+        required=True, deserialize_from="fur", serialized_name="fur"
+    )
+
+
 class Pessoa(Model):
     nome = StringType(
-        required=True,
-        serialize_when_none=False,
-        deserialize_from="name",
-        serialized_name="name",
+        required=True, deserialize_from="name", serialized_name="name"
     )
     idade = IntType(
         serialize_when_none=False,
@@ -20,3 +26,4 @@ class Pessoa(Model):
         deserialize_from="lang",
         serialized_name="blabla",
     )
+    pets = ListType(ModelType(PetType))
